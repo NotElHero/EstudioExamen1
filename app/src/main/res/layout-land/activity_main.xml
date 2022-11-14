@@ -106,4 +106,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/botonMostrar" />
 
+    <Button
+        android:id="@+id/botonCam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="cam"
+        app:layout_constraintEnd_toEndOf="@+id/checkBoxMaincra"
+        app:layout_constraintStart_toEndOf="@+id/spinner"
+        app:layout_constraintTop_toTopOf="@+id/spinner" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

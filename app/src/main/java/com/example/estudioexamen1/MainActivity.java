@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -16,15 +17,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    Button botonMostrar, botonLink;
+    Button botonMostrar, botonLink, botonCam;
     TextView textView;
     RadioButton botonLower, botonUpper;
     CheckBox botonFurbo, botonMaincra;
     EditText editText;
     String add = "";
-    boolean seleccion = false;
     String url = "https://www.youtube.com/watch?v=RjGH9JXbg4s";
 
     @Override
@@ -36,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         botonMostrar.setOnClickListener(this);
         botonLink = findViewById(R.id.botonLink);
         botonLink.setOnClickListener(this);
+        botonCam = findViewById(R.id.botonCam);
+        botonCam.setOnClickListener(this);
 
         textView = findViewById(R.id.textView);
         editText = findViewById(R.id.editText);
@@ -64,26 +68,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.botonMostrar:
                 estaCheck();
-                estaSeleccionado();
-                if (seleccion){
+                if (botonLower.isChecked()){
+                    textView.setText(editText.getText().toString().toLowerCase()+add.toLowerCase());
+                }if (botonUpper.isChecked()){
+                    textView.setText(editText.getText().toString().toUpperCase()+add.toUpperCase());
+                }else{
+                textView.setText(editText.getText() + add);
+        }
 
-                }
-                textView.setText(editText.getText()+add);
             Toast toast = Toast.makeText(this, "listo!", Toast.LENGTH_SHORT);
             toast.show();
-
             break;
             case R.id.botonLink:
                 Uri uri = Uri.parse(url);
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
                 break;
-
+            case R.id.botonCam:
+                Intent cam = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivity(cam);
+                break;
         }
-
     }
 
     public String estaCheck(){
@@ -97,16 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             add = "";
         }
         return add;
-    }
-
-    public boolean estaSeleccionado(){
-        if (botonLower.isChecked()) {
-            seleccion = false;
-        }
-        if (botonUpper.isChecked()){
-            seleccion = true;
-        }
-        return seleccion;
     }
 
     @Override
