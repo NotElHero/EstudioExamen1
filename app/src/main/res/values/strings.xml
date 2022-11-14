@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">EstudioExamen1</string>
+    <array name="genero">
+        <item>Masculino</item>
+        <item>Femenino</item>
+        <item>Helicoptero de combate apache</item>
+    </array>
+</resources>
